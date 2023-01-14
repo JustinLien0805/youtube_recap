@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { ResponsiveCalendar } from "@nivo/calendar";
 import { Line } from "react-chartjs-2";
 const options = {
   responsive: true,
@@ -71,6 +72,9 @@ function App() {
   ]);
   const [videoCountPerMonth, setVideoCountPerMonth] = useState(
     [] as Array<[string, number]>
+  );
+  const [videoCountPerDay, setVideoCountPerDay] = useState(
+    [] as Array<{ value: number; day: string }>
   );
   // data for line chart
   const data = {
@@ -135,6 +139,33 @@ function App() {
       }, {});
       console.log(videoCountPerMonth);
       setVideoCountPerMonth(Object.entries(videoCountPerMonth));
+
+      let videoCountPerDay = videoCount2022.reduce<{
+        [key: string]: number;
+      }>((acc, video) => {
+        const date = new Date(video.time);
+        const year = date.getFullYear();
+        let month: string | number = date.getMonth() + 1;
+        month = month < 10 ? `0${month}` : month;
+        let day: string | number = date.getDate();
+        day = day < 10 ? `0${day}` : day;
+        const key = `${year}-${month}-${day}`;
+        if (acc[key]) {
+          acc[key] += 1;
+        } else {
+          acc[key] = 1;
+        }
+        return acc;
+      }, {});
+      console.log(videoCountPerDay);
+      let newVideoCountPerDay = Object.entries(videoCountPerDay).map(
+        ([k, v]) => ({
+          value: v,
+          day: k,
+        })
+      );
+      console.log(newVideoCountPerDay.length);
+      setVideoCountPerDay(newVideoCountPerDay);
     };
 
     reader.readAsText(file);
@@ -156,7 +187,7 @@ function App() {
       </div>
 
       <div className="stats shadow text-white">
-        <div className="stat bg-base-300">
+        <div className="stat bg-base-300 gap-2">
           <div className="stat-title">Total Video Watched in 2022</div>
           <div className="stat-value">{totalVideoCount}</div>
           <div className="stat-desc">21% more than last month</div>
@@ -179,8 +210,40 @@ function App() {
           <div className="stat-value">{top3Creator[2][1]} Videos</div>
         </div>
       </div>
-      <div className="md:w-[60vw] w-[80vw] h-[50vh]">
+      <div className="w-[80vw] h-[50vh]">
         <Line className="w-full" options={options} data={data} />
+      </div>
+      <div className="md:w-[90vw] w-screen h-[100vh]">
+        <ResponsiveCalendar
+          data={videoCountPerDay}
+          from="2022-01-01"
+          to="2022-12-31"
+          emptyColor="#eeeeee"
+          colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
+          margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+          yearSpacing={40}
+          yearLegend={function (year) {
+            return year;
+          }}
+          monthBorderColor="#ffffff"
+          dayBorderWidth={2}
+          dayBorderColor="#ffffff"
+          theme={{
+            labels: { text: { fill: "#fff" } },
+          }}
+          legends={[
+            {
+              anchor: "bottom-right",
+              direction: "row",
+              translateY: 36,
+              itemCount: 4,
+              itemWidth: 42,
+              itemHeight: 36,
+              itemsSpacing: 14,
+              itemDirection: "right-to-left",
+            },
+          ]}
+        />
       </div>
     </div>
   );
