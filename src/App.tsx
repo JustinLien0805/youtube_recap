@@ -22,6 +22,7 @@ const options = {
       display: true,
       text: "Video Count Per Month",
       color: "#fff",
+      size: "96px",
     },
   },
   scales: {
@@ -65,7 +66,7 @@ type Top3Creator = Array<[string, number]>;
 
 function App() {
   const [totalVideoCount, setTotalVideoCount] = useState<number>(0);
-  const [top3Creator, setTop3Creator] = useState<Top3Creator>([
+  const [top10Creator, setTop10Creator] = useState<Top3Creator>([
     ["", 0],
     ["", 0],
     ["", 0],
@@ -76,16 +77,31 @@ function App() {
   const [videoCountPerDay, setVideoCountPerDay] = useState(
     [] as Array<{ value: number; day: string }>
   );
+  const [creatorCount, setCreatorCount] = useState<number>(0);
+
   // data for line chart
   const data = {
-    labels: videoCountPerMonth.map((item) => item[0]),
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
     datasets: [
       {
         label: "Videos Watched",
         data: videoCountPerMonth.map((item) => item[1]),
         fill: false,
-        backgroundColor: "#e879f999",
-        borderColor: "#e879f9",
+        backgroundColor: "#f87171",
+        borderColor: "#fca5a5",
       },
     ],
   };
@@ -112,16 +128,18 @@ function App() {
         const creator = video.subtitles[0]?.name;
         if (acc[creator]) {
           acc[creator] += 1;
+          setCreatorCount((prev) => prev + 1);
         } else {
           acc[creator] = 1;
         }
         return acc;
       }, {});
       // turn object to array and sort
-      const top3 = Object.entries(allCreatorVideosCount)
+
+      const top10 = Object.entries(allCreatorVideosCount)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 3);
-      setTop3Creator(top3);
+        .slice(0, 10);
+      setTop10Creator(top10);
 
       // count how many videos watched for each month format mm
       const videoCountPerMonth = videoCount2022.reduce<{
@@ -157,7 +175,7 @@ function App() {
         }
         return acc;
       }, {});
-      console.log(videoCountPerDay);
+
       let newVideoCountPerDay = Object.entries(videoCountPerDay).map(
         ([k, v]) => ({
           value: v,
@@ -169,6 +187,14 @@ function App() {
     };
 
     reader.readAsText(file);
+  };
+
+  // create a function that format the text length
+  const formatTextLength = (text: string, length: number) => {
+    if (text.length > length) {
+      return text.slice(0, length) + "...";
+    }
+    return text;
   };
 
   return (
@@ -193,43 +219,61 @@ function App() {
           <div className="stat-desc">21% more than last month</div>
         </div>
       </div>
-      <div className="stats shadow text-white md:grid-flow-col grid-flow-row">
+      <div className="stats shadow text-white">
+        <div className="stat bg-base-300 gap-2">
+          <div className="stat-title">Unique Creator watched</div>
+          <div className="stat-value">{creatorCount}</div>
+          <div className="stat-desc">21% more than last month</div>
+        </div>
+      </div>
+      <div className="stats shadow text-white  md:grid-flow-col grid-flow-row">
         <div className="stat bg-base-300 gap-2">
           <div className="stat-title">#1</div>
-          <div className="stat-value">{top3Creator[0][0]}</div>
-          <div className="stat-value">{top3Creator[0][1]} Videos</div>
+          <div className="stat-value">{top10Creator[0][0]}</div>
+          <div className="stat-value">{top10Creator[0][1]} Videos</div>
         </div>
         <div className="stat bg-base-300 gap-2">
           <div className="stat-title">#2</div>
-          <div className="stat-value">{top3Creator[1][0]}</div>
-          <div className="stat-value">{top3Creator[1][1]} Videos</div>
+          <div className="stat-value">{top10Creator[1][0]}</div>
+          <div className="stat-value">{top10Creator[1][1]} Videos</div>
         </div>
         <div className="stat bg-base-300 gap-2">
           <div className="stat-title">#3</div>
-          <div className="stat-value">{top3Creator[2][0]}</div>
-          <div className="stat-value">{top3Creator[2][1]} Videos</div>
+          <div className="stat-value">{top10Creator[2][0]}</div>
+          <div className="stat-value">{top10Creator[2][1]} Videos</div>
         </div>
       </div>
-      <div className="w-[80vw] h-[50vh]">
+      <div className="grid grid-flow-col grid-rows-5 gap-4 text-xl">
+        {top10Creator.map((creator, index) => (
+          <>
+            <h2 key={index} className="text-center">
+              <span>{index + 1}. </span>
+              {formatTextLength(creator[0], 20)}
+            </h2>
+          </>
+        ))}
+      </div>
+      <div className="w-[80vw]">
         <Line className="w-full" options={options} data={data} />
       </div>
-      <div className="md:w-[90vw] w-screen h-[100vh]">
+      <div className="md:w-[90vw] w-screen h-48">
         <ResponsiveCalendar
           data={videoCountPerDay}
           from="2022-01-01"
           to="2022-12-31"
           emptyColor="#eeeeee"
-          colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
+          // direction="vertical"
+          colors={["#fecaca", "#ef4444", "#b91c1c", "#7f1d1d"]}
           margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
           yearSpacing={40}
           yearLegend={function (year) {
             return year;
           }}
-          monthBorderColor="#ffffff"
+          monthBorderColor="gray"
           dayBorderWidth={2}
-          dayBorderColor="#ffffff"
+          dayBorderColor="gray"
           theme={{
-            labels: { text: { fill: "#fff" } },
+            labels: { text: { fill: "gray" } },
           }}
           legends={[
             {
