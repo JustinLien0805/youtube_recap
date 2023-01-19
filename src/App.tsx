@@ -197,21 +197,88 @@ function App() {
     return text;
   };
 
+  // smooth scroll back to the top of the page
+  const backToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center items-center space-y-10 my-20">
-      <div className="form-control w-full max-w-xs">
+    <div className="min-h-screen w-full flex flex-col justify-center items-start space-y-10 p-20 md:px-52">
+      <h1 className="flex flex-col font-bold text-7xl md:text-8xl text-white pb-10 md:space-y-2">
+        <span>Get your</span>
+        <span className="text-red-600">Youtebe Recap</span>
+        <span>for 2022</span>
+      </h1>
+      <div className="form-control w-full max-w-xl">
         <label className="label">
-          <span className="label-text">Pick a file</span>
-          <span className="label-text-alt">Alt label</span>
+          <span className="label-text">
+            Upload Your Youtube watch-history.json
+          </span>
         </label>
         <input
           type="file"
-          className="file-input file-input-bordered w-full max-w-xs"
+          className="file-input file-input-bordered w-full"
           accept="application/json"
           onChange={handleChange}
         />
       </div>
+      <div className="flex flex-col items-center w-full pt-20">
+        <h2 className="text-center w-full text-4xl font-bold text-white">
+          How to retrieve the data
+        </h2>
+        <ul className="steps steps-vertical min-h-screen text-white">
+          <li className="step step-primary">
+            <div className="flex flex-col gap-4 items-center w-full">
+              <h3>
+                Visit Google takeout and select Youtube on "Select Data to
+                include"
+              </h3>
+              <a
+                className="btn w-64"
+                target="_blank"
+                href="https://takeout.google.com/"
+              >
+                Go to Google Takeout
+              </a>
+            </div>
+          </li>
+          <li className="step step-primary">
+            <div className="flex gap-4 justify-center w-full">
+              <h3>Under "Multiple formats", select "JSON" for history</h3>
+            </div>
+          </li>
+          <li className="step step-primary">
+            <div className="flex gap-4 justify-center w-full">
+              <h3>Under 'All Youtube data included, select "history"</h3>
+            </div>
+          </li>
+          <li className="step step-primary">
+            <div className="flex gap-4 justify-center w-full">
+              <h3>Click on "Create export."</h3>
+            </div>
+          </li>
+          <li className="step step-primary">
+            <div className="flex gap-4 justify-center w-full">
+              <h3>
+                After a few minutes, check your email and download the data
+                report.
+              </h3>
+            </div>
+          </li>
+          <li className="step step-primary">
+            <div className="flex gap-4 justify-center w-full">
+              <button className="btn btn-primary" onClick={backToTop}>
+                Upload Your File
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
 
+      {/* 
       <div className="stats shadow text-white">
         <div className="stat bg-base-300 gap-2">
           <div className="stat-title">Total Video Watched in 2022</div>
@@ -288,7 +355,7 @@ function App() {
             },
           ]}
         />
-      </div>
+      </div> */}
     </div>
   );
 }
