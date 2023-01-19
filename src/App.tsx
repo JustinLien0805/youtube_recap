@@ -1,4 +1,10 @@
 import { useState } from "react";
+import step1 from "./assets/step1.png";
+import step2 from "./assets/step2.png";
+import step3 from "./assets/step3.png";
+import step4 from "./assets/step4.png";
+import step5 from "./assets/step5.png";
+import step6 from "./assets/step6.png";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -206,33 +212,38 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center items-start space-y-10 p-20 md:px-52">
-      <h1 className="flex flex-col font-bold text-7xl md:text-8xl text-white pb-10 md:space-y-2">
-        <span>Get your</span>
-        <span className="text-red-600">Youtebe Recap</span>
-        <span>for 2022</span>
-      </h1>
-      <div className="form-control w-full max-w-xl">
-        <label className="label">
-          <span className="label-text">
-            Upload Your Youtube watch-history.json
-          </span>
-        </label>
-        <input
-          type="file"
-          className="file-input file-input-bordered w-full"
-          accept="application/json"
-          onChange={handleChange}
-        />
+    <div className="min-h-screen w-full flex flex-col justify-center items-center space-y-10 px-4 py-20 sm:px-20 lg:px-52">
+      <div className="w-full flex flex-col max-w-2xl">
+        <h1 className="flex flex-col font-bold text-7xl md:text-8xl text-white pb-10 md:space-y-2">
+          <span>Get your</span>
+          <span className="text-red-600">Youtebe Recap</span>
+          <span>for 2022</span>
+        </h1>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text text-xl">
+              Upload Your Youtube watch-history.json
+            </span>
+          </label>
+          <input
+            type="file"
+            className="file-input file-input-bordered w-full"
+            accept="application/json"
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <div className="flex flex-col items-center w-full pt-20">
         <h2 className="text-center w-full text-4xl font-bold text-white">
           How to retrieve the data
         </h2>
-        <ul className="steps steps-vertical min-h-screen text-white">
+        <ul className="steps steps-vertical min-h-screen text-white max-w-2xl">
           <li className="step step-primary">
-            <div className="flex flex-col gap-4 items-center w-full">
-              <h3>
+            <div className="flex flex-col gap-4 items-center w-full my-20">
+              <div className="w-11/12 max-w-xl">
+                <img src={step1} alt="" className="object-cover" />
+              </div>
+              <h3 className="text-xl">
                 Visit Google takeout and select Youtube on "Select Data to
                 include"
               </h3>
@@ -246,31 +257,57 @@ function App() {
             </div>
           </li>
           <li className="step step-primary">
-            <div className="flex gap-4 justify-center w-full">
-              <h3>Under "Multiple formats", select "JSON" for history</h3>
+            <div className="flex flex-col gap-4 items-center w-full">
+              <div className="w-11/12 max-w-xl">
+                <img src={step2} alt="" className="object-cover" />
+              </div>
+              <h3 className="text-xl">
+                Under "Multiple formats", select "JSON" for history
+              </h3>
             </div>
           </li>
           <li className="step step-primary">
-            <div className="flex gap-4 justify-center w-full">
-              <h3>Under 'All Youtube data included, select "history"</h3>
+            <div className="flex flex-col gap-4 items-center w-full my-20">
+              <div className="w-11/12 max-w-xl">
+                <img src={step3} alt="" className="object-cover" />
+              </div>
+              <h3 className="text-xl">
+                Under 'All Youtube data included, select "history"
+              </h3>
             </div>
           </li>
           <li className="step step-primary">
-            <div className="flex gap-4 justify-center w-full">
-              <h3>Click on "Create export."</h3>
+            <div className="flex flex-col gap-4 items-center w-full my-20">
+              <div className="w-11/12 max-w-xl">
+                <img src={step4} alt="" className="object-cover" />
+              </div>
+              <h3 className="text-xl">Click on "Create export."</h3>
             </div>
           </li>
           <li className="step step-primary">
-            <div className="flex gap-4 justify-center w-full">
-              <h3>
+            <div className="flex flex-col gap-4 items-center w-full my-20">
+              <div className="w-11/12 max-w-xl">
+                <img src={step5} alt="" className="object-cover" />
+              </div>
+              <h3 className="text-xl">
                 After a few minutes, check your email and download the data
                 report.
               </h3>
             </div>
           </li>
           <li className="step step-primary">
-            <div className="flex gap-4 justify-center w-full">
-              <button className="btn btn-primary" onClick={backToTop}>
+            <div className="flex flex-col gap-4 items-center w-full my-20">
+              <div className="w-11/12 max-w-xl">
+                <img src={step6} alt="" className="w-full" />
+              </div>
+              <h3 className="text-xl">
+                Unzip the file and you can find the watch-history inside Takeout
+                =&gt; Youtube &amp; Youtube Music =&gt; watch-history
+              </h3>
+              <button
+                className="btn btn-primary text-white"
+                onClick={backToTop}
+              >
                 Upload Your File
               </button>
             </div>
