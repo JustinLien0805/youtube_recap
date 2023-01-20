@@ -9,13 +9,13 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 const options = {
   responsive: true,
   maintainAspectRatio: false,
@@ -23,23 +23,17 @@ const options = {
     legend: {
       position: "top" as const,
     },
-    title: {
-      display: true,
-      text: "Video Count Per Month",
-      color: "#fff",
-      size: "96px",
-    },
   },
   scales: {
     y: {
       ticks: {
-        color: "#a5adba",
+        color: "#fff",
         beginAtZero: true,
       },
     },
     x: {
       ticks: {
-        color: "#a5adba",
+        color: " #fff",
         beginAtZero: true,
       },
     },
@@ -50,7 +44,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -67,12 +61,12 @@ type Subtitle = {
   url: string;
 };
 
-type Top3Creator = Array<[string, number]>;
+type TopCreator = Array<[string, number]>;
 
 const Recap = () => {
   const location = useLocation();
   const [totalVideoCount, setTotalVideoCount] = useState<number>(0);
-  const [top10Creator, setTop10Creator] = useState<Top3Creator>([
+  const [top10Creator, setTop10Creator] = useState<TopCreator>([
     ["", 0],
     ["", 0],
     ["", 0],
@@ -161,7 +155,6 @@ const Recap = () => {
           day: k,
         })
       );
-
       setVideoCountPerDay(newVideoCountPerDay);
     };
 
@@ -197,13 +190,14 @@ const Recap = () => {
         label: "Videos Watched",
         data: videoCountPerMonth.map((item) => item[1]),
         fill: false,
-        backgroundColor: "#f87171",
-        borderColor: "#fca5a5",
+        backgroundColor: "#dc2626",
+        borderColor: "#dc262699",
       },
     ],
   };
 
   const ref = useRef(null);
+  const topCreatorRef = useRef(null);
   const isInView = useInView(ref, { once: true });
 
   const { scrollYProgress } = useScroll();
@@ -217,7 +211,7 @@ const Recap = () => {
     <div className="min-h-screen w-full flex flex-col justify-center items-center px-4 sm:px-20 lg:px-48 overflow-hidden snap-y snap-mandatory">
       <motion.div
         style={{ scaleX }}
-        className="fixed h-1 left-0 right-0 bottom-12 bg-white"
+        className="fixed h-1 left-0 right-0 bottom-12 bg-white z-50"
       />
       <Tilt
         className="flex flex-col w-full justify-center min-h-screen items-center group snap-center snap-always"
@@ -269,51 +263,71 @@ const Recap = () => {
         name={top10Creator[2][0]}
         videoCount={top10Creator[2][1]}
       />
-
-      {/* <div className="grid grid-flow-col grid-rows-5 gap-4 text-xl">
-        {top10Creator.map((creator, index) => (
-          <h2 key={index} className="text-center">
-            <span>{index + 1}. </span>
-            {formatTextLength(creator[0], 20)}
-          </h2>
-        ))}
-      </div> */}
-      {/* <div className="w-[80vw]">
-        <Line className="w-full" options={options} data={data} />
-      </div> */}
-      {/* <div className="md:w-[90vw] w-screen h-48">
-        <ResponsiveCalendar
-          data={videoCountPerDay}
-          from="2022-01-01"
-          to="2022-12-31"
-          emptyColor="#eeeeee"
-          // direction="vertical"
-          colors={["#fecaca", "#ef4444", "#b91c1c", "#7f1d1d"]}
-          margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-          yearSpacing={40}
-          yearLegend={function (year) {
-            return year;
-          }}
-          monthBorderColor="gray"
-          dayBorderWidth={2}
-          dayBorderColor="gray"
-          theme={{
-            labels: { text: { fill: "gray" } },
-          }}
-          legends={[
-            {
-              anchor: "bottom-right",
-              direction: "row",
-              translateY: 36,
-              itemCount: 4,
-              itemWidth: 42,
-              itemHeight: 36,
-              itemsSpacing: 14,
-              itemDirection: "right-to-left",
-            },
-          ]}
-        />
-      </div> */}
+      <div
+        className="min-h-screen flex flex-col justify-center items-center text-2xl font-bold text-white gap-6"
+        ref={topCreatorRef}
+        style={{
+          transform: isInView ? "none" : "translateY(100px)",
+          opacity: isInView ? 1 : 0,
+          transition: "all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+        }}
+      >
+        <h2 className="col-span-2 text-5xl">Top Creators</h2>
+        <div className="grid grid-flow-col grid-rows-5 gap-6 h-full">
+          {top10Creator.map((creator, index) => (
+            <h2 key={index} className="text-center max-w-xl">
+              <span>{index + 1}. </span>
+              <span className="text-red-600 text-3xl">
+                {formatTextLength(creator[0], 20)}
+              </span>
+              <span> {creator[1]} videos</span>
+            </h2>
+          ))}
+        </div>
+      </div>
+      <div className="min-h-screen flex flex-col justify-center items-center text-white">
+        <h2 className="text-6xl font-bold mb-10  w-full text-center">
+          Video Counts per Month
+        </h2>
+        <div className="md:w-[50vw] w-[80vw] h-96">
+          <Bar className="w-full h-full" options={options} data={data} />
+        </div>
+      </div>
+      <div className="min-h-screen flex flex-col justify-center items-center text-white">
+        <h2 className="text-6xl font-bold mb-10 w-full text-center">
+          Your year in <span className="text-red-600">videos</span>
+        </h2>
+        <div className="md:w-[90vw] w-screen h-48">
+          <ResponsiveCalendar
+            data={videoCountPerDay}
+            from="2022-01-01"
+            to="2022-12-31"
+            emptyColor="#eeeeee"
+            colors={["#fecaca", "#ef4444", "#b91c1c", "#7f1d1d"]}
+            margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+            yearSpacing={40}
+            monthBorderColor="white"
+            dayBorderWidth={2}
+            dayBorderColor="white"
+            theme={{
+              labels: { text: { fill: "white" } },
+              tooltip: { container: { background: "white", color: "black" } },
+            }}
+            legends={[
+              {
+                anchor: "bottom-right",
+                direction: "row",
+                translateY: 36,
+                itemCount: 4,
+                itemWidth: 42,
+                itemHeight: 36,
+                itemsSpacing: 14,
+                itemDirection: "right-to-left",
+              },
+            ]}
+          />
+        </div>
+      </div>
     </div>
   );
 };
