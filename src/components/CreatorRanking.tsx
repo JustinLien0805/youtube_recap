@@ -21,7 +21,10 @@ const CreatorRanking = ({
   const { scrollYProgress } = useScroll({ target: ref });
   const y = useParallax(scrollYProgress, 300);
   return (
-    <div className="flex flex-col w-full justify-center min-h-screen items-start font-bold text-6xl md:text-8xl text-white pb-10 space-y-2 relative snap-center">
+    <div
+      className="flex flex-col w-full justify-center min-h-screen items-start
+     font-bold text-6xl md:text-8xl text-white pb-10 space-y-2 relative snap-center max-w-7xl"
+    >
       <h2 className="text-red-600">{name}</h2>
       <h2 className="text-6xl">{videoCount} Videos</h2>
       <motion.div

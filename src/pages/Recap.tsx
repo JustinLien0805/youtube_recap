@@ -214,7 +214,7 @@ const Recap = () => {
         className="fixed h-1 left-0 right-0 bottom-12 bg-white z-50"
       />
       <Tilt
-        className="flex flex-col w-full justify-center min-h-screen items-center group snap-center snap-always"
+        className="flex flex-col w-full justify-center min-h-screen items-center group snap-center snap-always max-w-7xl"
         tiltMaxAngleY={10}
         tiltMaxAngleX={10}
       >
@@ -235,7 +235,7 @@ const Recap = () => {
         </h1>
       </Tilt>
 
-      <div className="font-bold text-6xl text-white text-center min-h-screen flex justify-center items-center snap-center snap-always">
+      <div className="font-bold text-6xl text-white text-center min-h-screen flex justify-center items-center snap-center snap-always max-w-7xl">
         <h2
           ref={ref}
           style={{
@@ -264,7 +264,7 @@ const Recap = () => {
         videoCount={top10Creator[2][1]}
       />
       <div
-        className="min-h-screen flex flex-col justify-center items-center text-2xl font-bold text-white gap-6"
+        className="min-h-screen flex flex-col justify-center items-center text-2xl font-bold text-white gap-6 max-w-7xl"
         ref={topCreatorRef}
         style={{
           transform: isInView ? "none" : "translateY(100px)",
@@ -285,7 +285,7 @@ const Recap = () => {
           ))}
         </div>
       </div>
-      <div className="min-h-screen flex flex-col justify-center items-center text-white">
+      <div className="min-h-screen flex flex-col justify-center items-center text-white max-w-7xl">
         <h2 className="text-6xl font-bold mb-10  w-full text-center">
           Video Counts per Month
         </h2>
@@ -293,7 +293,7 @@ const Recap = () => {
           <Bar className="w-full h-full" options={options} data={data} />
         </div>
       </div>
-      <div className="min-h-screen flex flex-col justify-center items-center text-white">
+      <div className="min-h-screen flex flex-col justify-center items-center text-white max-w-7xl">
         <h2 className="text-6xl font-bold mb-10 w-full text-center">
           Your year in <span className="text-red-600">videos</span>
         </h2>
