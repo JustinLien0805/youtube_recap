@@ -6,6 +6,7 @@ import step3 from "../assets/step3.png";
 import step4 from "../assets/step4.png";
 import step5 from "../assets/step5.png";
 import step6 from "../assets/step6.png";
+import Step from "../components/Step";
 
 type WatchHistory = {
   title: string;
@@ -126,14 +127,6 @@ function Home() {
     });
   };
 
-  // smooth scroll back to the top of the page
-  const backToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <div className="min-h-screen w-full flex flex-col justify-center items-center space-y-10 px-4 py-20 sm:px-20 lg:px-52">
       <div className="w-full flex flex-col max-w-2xl">
@@ -161,80 +154,33 @@ function Home() {
           How to retrieve the data
         </h2>
         <ul className="steps steps-vertical min-h-screen text-white max-w-2xl">
-          <li className="step step-primary">
-            <div className="flex flex-col gap-4 items-center w-full my-20">
-              <div className="w-11/12 max-w-xl">
-                <img src={step1} alt="" className="object-cover" />
-              </div>
-              <h3 className="text-xl">
-                Visit Google takeout and select Youtube on "Select Data to
-                include"
-              </h3>
-              <a
-                className="btn w-64"
-                target="_blank"
-                href="https://takeout.google.com/"
-              >
-                Go to Google Takeout
-              </a>
-            </div>
-          </li>
-          <li className="step step-primary">
-            <div className="flex flex-col gap-4 items-center w-full">
-              <div className="w-11/12 max-w-xl">
-                <img src={step2} alt="" className="object-cover" />
-              </div>
-              <h3 className="text-xl">
-                Under "Multiple formats", select "JSON" for history
-              </h3>
-            </div>
-          </li>
-          <li className="step step-primary">
-            <div className="flex flex-col gap-4 items-center w-full my-20">
-              <div className="w-11/12 max-w-xl">
-                <img src={step3} alt="" className="object-cover" />
-              </div>
-              <h3 className="text-xl">
-                Under 'All Youtube data included, select "history"
-              </h3>
-            </div>
-          </li>
-          <li className="step step-primary">
-            <div className="flex flex-col gap-4 items-center w-full my-20">
-              <div className="w-11/12 max-w-xl">
-                <img src={step4} alt="" className="object-cover" />
-              </div>
-              <h3 className="text-xl">Click on "Create export."</h3>
-            </div>
-          </li>
-          <li className="step step-primary">
-            <div className="flex flex-col gap-4 items-center w-full my-20">
-              <div className="w-11/12 max-w-xl">
-                <img src={step5} alt="" className="object-cover" />
-              </div>
-              <h3 className="text-xl">
-                After a few minutes, check your email and download the data
-                report.
-              </h3>
-            </div>
-          </li>
-          <li className="step step-primary">
-            <div className="flex flex-col gap-4 items-center w-full my-20">
-              <div className="w-11/12 max-w-xl">
-                <img src={step6} alt="" className="w-full" />
-              </div>
-              <h3 className="text-xl">
-                Unzip the file and you can find the watch-history inside Takeout
-                =&gt; Youtube &amp; Youtube Music =&gt; watch-history
-              </h3>
-              <button
-                className="btn btn-primary text-white"
-                onClick={backToTop}
-              >
-                Upload Your File
-              </button>
-            </div>
-          </li>
+          <Step
+            img={step1}
+            description="Visit Google takeout and select Youtube on 'Select Data to
+            include'"
+            step1={true}
+          />
+
+          <Step
+            img={step2}
+            description="Under 'Multiple formats', select 'JSON' for history"
+          />
+          <Step
+            img={step3}
+            description="Under 'All Youtube data included, select 'history'"
+          />
+          <Step img={step4} description="Click on 'Create export'" />
+          <Step
+            img={step5}
+            description="After a few minutes, check your email and download the data
+            report"
+          />
+          <Step
+            img={step6}
+            description="Unzip the file and you can find the watch-history inside Takeout
+            =&gt; Youtube &amp; Youtube Music =&gt; watch-history"
+            step6={true}
+          />
         </ul>
       </div>
     </div>

@@ -80,7 +80,6 @@ const Recap = () => {
     [] as Array<{ value: number; day: string }>
   );
   const [creatorCount, setCreatorCount] = useState<number>(0);
-  console.log(location.state.files);
 
   useEffect(() => {
     // read the json file
@@ -199,23 +198,26 @@ const Recap = () => {
       },
     ],
   };
+
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center items-center space-y-10 px-4 py-20 sm:px-20 lg:px-52">
-      <div className="stats shadow text-white">
-        <div className="stat bg-base-300 gap-2">
-          <div className="stat-title">Total Video Watched in 2022</div>
-          <div className="stat-value">{totalVideoCount}</div>
-          <div className="stat-desc">21% more than last month</div>
-        </div>
+    <div className="min-h-screen w-full flex flex-col justify-center items-center px-4 sm:px-20 lg:px-48 over">
+      <div className="flex flex-col w-full justify-center min-h-screen items-center">
+        <h1 className="flex flex-col font-bold text-6xl md:text-8xl text-white pb-10 md:space-y-2">
+          <span>In 2022...</span>
+          <span>You Watched</span>
+          <span className="text-red-600">
+            {totalVideoCount} <span className="text-white">videos</span>
+          </span>
+          <span>
+            From
+            <span className="text-red-600"> {creatorCount} </span>
+            Creators
+          </span>
+        </h1>
       </div>
-      <div className="stats shadow text-white">
-        <div className="stat bg-base-300 gap-2">
-          <div className="stat-title">Unique Creator watched</div>
-          <div className="stat-value">{creatorCount}</div>
-          <div className="stat-desc">21% more than last month</div>
-        </div>
-      </div>
-      <div className="stats shadow text-white  md:grid-flow-col grid-flow-row">
+      <div className="flex flex-col w-full justify-center min-h-screen items-center"></div>
+
+      {/* <div className="stats shadow text-white  md:grid-flow-col grid-flow-row">
         <div className="stat bg-base-300 gap-2">
           <div className="stat-title">#1</div>
           <div className="stat-value">{top10Creator[0][0]}</div>
@@ -231,21 +233,19 @@ const Recap = () => {
           <div className="stat-value">{top10Creator[2][0]}</div>
           <div className="stat-value">{top10Creator[2][1]} Videos</div>
         </div>
-      </div>
-      <div className="grid grid-flow-col grid-rows-5 gap-4 text-xl">
+      </div> */}
+      {/* <div className="grid grid-flow-col grid-rows-5 gap-4 text-xl">
         {top10Creator.map((creator, index) => (
-          <>
-            <h2 key={index} className="text-center">
-              <span>{index + 1}. </span>
-              {formatTextLength(creator[0], 20)}
-            </h2>
-          </>
+          <h2 key={index} className="text-center">
+            <span>{index + 1}. </span>
+            {formatTextLength(creator[0], 20)}
+          </h2>
         ))}
-      </div>
-      <div className="w-[80vw]">
+      </div> */}
+      {/* <div className="w-[80vw]">
         <Line className="w-full" options={options} data={data} />
-      </div>
-      <div className="md:w-[90vw] w-screen h-48">
+      </div> */}
+      {/* <div className="md:w-[90vw] w-screen h-48">
         <ResponsiveCalendar
           data={videoCountPerDay}
           from="2022-01-01"
@@ -277,7 +277,7 @@ const Recap = () => {
             },
           ]}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
