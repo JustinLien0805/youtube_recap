@@ -128,62 +128,77 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center items-center space-y-10 px-4 py-20 sm:px-20 lg:px-52">
-      <div className="w-full flex flex-col max-w-2xl">
-        <h1 className="flex flex-col font-bold text-7xl md:text-8xl text-white pb-10 md:space-y-2">
-          <span>Get your</span>
-          <span className="text-red-600">Youtebe Recap</span>
-          <span>for 2022</span>
-        </h1>
-        <div className="form-control w-full">
-          <label className="label">
-            <span className="label-text text-xl">
-              Upload Your Youtube watch-history.json
-            </span>
-          </label>
-          <input
-            type="file"
-            className="file-input file-input-bordered w-full"
-            accept="application/json"
-            onChange={handleChange}
-          />
+    <>
+      <div className="min-h-screen w-full flex flex-col justify-center items-center space-y-10 px-4 pt-20 sm:px-12 lg:px-52">
+        <div className="w-full flex flex-col max-w-2xl">
+          <h1 className="flex flex-col font-bold text-7xl md:text-8xl text-white pb-10 md:space-y-2">
+            <span>Get your</span>
+            <span className="text-red-600">Youtebe Recap</span>
+            <span>for 2022</span>
+          </h1>
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text text-base">
+                Upload Your Youtube watch-history.json
+              </span>
+            </label>
+            <input
+              type="file"
+              className="file-input file-input-bordered w-full text-white"
+              accept="application/json"
+              onChange={handleChange}
+            />
+            <label className="label">
+              <span className="label-text-alt text-base">
+                Tips: You can also drag and drop the file
+              </span>
+            </label>
+          </div>
+        </div>
+        <div className="flex flex-col items-center w-full pt-20">
+          <h2 className="text-center w-full text-4xl font-bold text-white">
+            How to retrieve the data
+          </h2>
+          <ul className="steps steps-vertical min-h-screen text-white max-w-2xl overflow-x-hidden">
+            <Step
+              img={step1}
+              description="Visit Google takeout and select Youtube on 'Select Data to
+            include'"
+              step1={true}
+            />
+
+            <Step
+              img={step2}
+              description="Under 'Multiple formats', select 'JSON' for history"
+            />
+            <Step
+              img={step3}
+              description="Under 'All Youtube data included, select 'history'"
+            />
+            <Step img={step4} description="Click on 'Create export'" />
+            <Step
+              img={step5}
+              description="After a few minutes, check your email and download the data
+            report"
+            />
+            <Step
+              img={step6}
+              description="Unzip the file and you can find the watch-history inside Takeout
+            =&gt; Youtube &amp; Youtube Music =&gt; watch-history"
+              step6={true}
+            />
+          </ul>
         </div>
       </div>
-      <div className="flex flex-col items-center w-full pt-20">
-        <h2 className="text-center w-full text-4xl font-bold text-white">
-          How to retrieve the data
-        </h2>
-        <ul className="steps steps-vertical min-h-screen text-white max-w-2xl">
-          <Step
-            img={step1}
-            description="Visit Google takeout and select Youtube on 'Select Data to
-            include'"
-            step1={true}
-          />
-
-          <Step
-            img={step2}
-            description="Under 'Multiple formats', select 'JSON' for history"
-          />
-          <Step
-            img={step3}
-            description="Under 'All Youtube data included, select 'history'"
-          />
-          <Step img={step4} description="Click on 'Create export'" />
-          <Step
-            img={step5}
-            description="After a few minutes, check your email and download the data
-            report"
-          />
-          <Step
-            img={step6}
-            description="Unzip the file and you can find the watch-history inside Takeout
-            =&gt; Youtube &amp; Youtube Music =&gt; watch-history"
-            step6={true}
-          />
-        </ul>
-      </div>
-    </div>
+      <footer className="footer footer-center p-4 text-base-content">
+        <div>
+          <p>
+            Inspired by{" "}
+            <a href="https://videorecap.viewodyssey.com/">Anthony Teo</a>
+          </p>
+        </div>
+      </footer>
+    </>
   );
 }
 

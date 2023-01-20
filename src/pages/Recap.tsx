@@ -208,7 +208,7 @@ const Recap = () => {
   });
 
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center items-center px-4 sm:px-20 lg:px-48 overflow-hidden snap-y snap-mandatory">
+    <div className="min-h-screen w-full flex flex-col justify-cener items-center px-4 sm:px-20 lg:px-48 overflow-hidden snap-y snap-mandatory">
       <motion.div
         style={{ scaleX }}
         className="fixed h-1 left-0 right-0 bottom-12 bg-white z-50"

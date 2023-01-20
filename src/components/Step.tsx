@@ -3,7 +3,7 @@ import { useInView } from "framer-motion";
 
 interface StepProps {
   img: string;
-  description: string;
+  description?: string;
   step1?: boolean;
   step6?: boolean;
 }
@@ -37,10 +37,70 @@ const Step = ({
         <div className="w-11/12 max-w-xl">
           <img src={img} alt="" className="w-full" />
         </div>
-        <h3 className="text-xl">{description}</h3>
+        {step6 ? (
+          <div className="breadcrumbs text-xl max-w-sm sm:max-w-xl">
+            <p>Unzip the file and you can find the watch-history inside</p>
+            <ul>
+              <li>
+                <a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4 mr-2 stroke-current"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                    ></path>
+                  </svg>
+                  Takeout
+                </a>
+              </li>
+              <li>
+                <a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4 mr-2 stroke-current"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                    ></path>
+                  </svg>
+                  Youtube and Youtebe Music
+                </a>
+              </li>
+              <li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 mr-2 stroke-current"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                  ></path>
+                </svg>
+                watch-history
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <h3 className="text-xl">{description}</h3>
+        )}
         {step1 && (
           <a
-            className="btn w-64"
+            className="btn w-64 text-white"
             target="_blank"
             href="https://takeout.google.com/"
           >
