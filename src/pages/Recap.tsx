@@ -1,5 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useInView, useSpring, useScroll, motion } from "framer-motion";
+
 import { useLocation } from "react-router-dom";
+import CreatorRanking from "../components/CreatorRanking";
+import Tilt from "react-parallax-tilt";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -199,14 +203,35 @@ const Recap = () => {
     ],
   };
 
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center items-center px-4 sm:px-20 lg:px-48 over">
-      <div className="flex flex-col w-full justify-center min-h-screen items-center">
-        <h1 className="flex flex-col font-bold text-6xl md:text-8xl text-white pb-10 md:space-y-2">
+    <div className="min-h-screen w-full flex flex-col justify-center items-center px-4 sm:px-20 lg:px-48 overflow-hidden snap-y snap-mandatory">
+      <motion.div
+        style={{ scaleX }}
+        className="fixed h-1 left-0 right-0 bottom-12 bg-white"
+      />
+      <Tilt
+        className="flex flex-col w-full justify-center min-h-screen items-center group snap-center snap-always"
+        tiltMaxAngleY={10}
+        tiltMaxAngleX={10}
+      >
+        <h1 className="flex flex-col font-bold text-6xl text-white pb-10 md:space-y-2">
           <span>In 2022...</span>
           <span>You Watched</span>
           <span className="text-red-600">
-            {totalVideoCount} <span className="text-white">videos</span>
+            <span className="group-hover:z-10 text-[60px] mr-2 md:text-[100px] md:mr-4 lg:text-[200px] tracking-[-.05em] leading-tight text-primary lg:mr-6 inline">
+              {totalVideoCount}
+            </span>
+            <span className="text-white text-6xl"> videos</span>
           </span>
           <span>
             From
@@ -214,26 +239,37 @@ const Recap = () => {
             Creators
           </span>
         </h1>
-      </div>
-      <div className="flex flex-col w-full justify-center min-h-screen items-center"></div>
+      </Tilt>
 
-      {/* <div className="stats shadow text-white  md:grid-flow-col grid-flow-row">
-        <div className="stat bg-base-300 gap-2">
-          <div className="stat-title">#1</div>
-          <div className="stat-value">{top10Creator[0][0]}</div>
-          <div className="stat-value">{top10Creator[0][1]} Videos</div>
-        </div>
-        <div className="stat bg-base-300 gap-2">
-          <div className="stat-title">#2</div>
-          <div className="stat-value">{top10Creator[1][0]}</div>
-          <div className="stat-value">{top10Creator[1][1]} Videos</div>
-        </div>
-        <div className="stat bg-base-300 gap-2">
-          <div className="stat-title">#3</div>
-          <div className="stat-value">{top10Creator[2][0]}</div>
-          <div className="stat-value">{top10Creator[2][1]} Videos</div>
-        </div>
-      </div> */}
+      <div className="font-bold text-6xl text-white text-center min-h-screen flex justify-center items-center snap-center snap-always">
+        <h2
+          ref={ref}
+          style={{
+            transform: isInView ? "none" : "translateY(100px)",
+            opacity: isInView ? 1 : 0,
+            transition: "all 0.1s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s",
+          }}
+        >
+          Let's look at your favorite creators
+        </h2>
+      </div>
+
+      <CreatorRanking
+        rankNumber="#001"
+        name={top10Creator[0][0]}
+        videoCount={top10Creator[0][1]}
+      />
+      <CreatorRanking
+        rankNumber="#002"
+        name={top10Creator[1][0]}
+        videoCount={top10Creator[1][1]}
+      />
+      <CreatorRanking
+        rankNumber="#003"
+        name={top10Creator[2][0]}
+        videoCount={top10Creator[2][1]}
+      />
+
       {/* <div className="grid grid-flow-col grid-rows-5 gap-4 text-xl">
         {top10Creator.map((creator, index) => (
           <h2 key={index} className="text-center">
