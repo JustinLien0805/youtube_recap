@@ -277,7 +277,7 @@ const Recap = () => {
           {top10Creator.map((creator, index) => (
             <h2 key={index} className="text-center max-w-xl">
               <span>{index + 1}. </span>
-              <span className="text-red-600 text-3xl">
+              <span className="text-red-600 sm:text-3xl">
                 {formatTextLength(creator[0], 20)}
               </span>
               <span> {creator[1]} videos</span>
