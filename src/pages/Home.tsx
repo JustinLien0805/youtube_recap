@@ -47,14 +47,14 @@ function Home() {
       const videos: Array<WatchHistory> = JSON.parse(
         e.target?.result as string
       );
-      const videoCount2022: Array<WatchHistory> = videos.filter((video) => {
+      const videoCount2023: Array<WatchHistory> = videos.filter((video) => {
         const date = new Date(video.time);
-        return date.getFullYear() === 2022;
+        return date.getFullYear() === 2023;
       });
-      setTotalVideoCount(videoCount2022.length);
+      setTotalVideoCount(videoCount2023.length);
 
       // calculate the all creator video count
-      const allCreatorVideosCount = videoCount2022.reduce<{
+      const allCreatorVideosCount = videoCount2023.reduce<{
         [key: string]: number;
       }>((acc, video) => {
         if (!video.subtitles) return acc;
@@ -75,7 +75,7 @@ function Home() {
       setTop10Creator(top10);
 
       // count how many videos watched for each month format mm
-      const videoCountPerMonth = videoCount2022.reduce<{
+      const videoCountPerMonth = videoCount2023.reduce<{
         [key: string]: number;
       }>((acc, video) => {
         const date = new Date(video.time);
@@ -90,7 +90,7 @@ function Home() {
       }, {});
       setVideoCountPerMonth(Object.entries(videoCountPerMonth));
 
-      let videoCountPerDay = videoCount2022.reduce<{
+      let videoCountPerDay = videoCount2023.reduce<{
         [key: string]: number;
       }>((acc, video) => {
         const date = new Date(video.time);
@@ -134,7 +134,7 @@ function Home() {
           <h1 className="flex flex-col font-bold text-7xl md:text-8xl text-white pb-10 md:space-y-2">
             <span>Get your</span>
             <span className="text-red-600">Youtebe Recap</span>
-            <span>for 2022</span>
+            <span>for 2023</span>
           </h1>
           <div className="form-control w-full">
             <label className="label">

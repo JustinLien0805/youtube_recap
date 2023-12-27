@@ -88,14 +88,14 @@ const Recap = () => {
       const videos: Array<WatchHistory> = JSON.parse(
         e.target?.result as string
       );
-      const videoCount2022: Array<WatchHistory> = videos.filter((video) => {
+      const videoCount2023: Array<WatchHistory> = videos.filter((video) => {
         const date = new Date(video.time);
-        return date.getFullYear() === 2022;
+        return date.getFullYear() === 2023;
       });
-      setTotalVideoCount(videoCount2022.length);
+      setTotalVideoCount(videoCount2023.length);
 
       // calculate the all creator video count
-      const allCreatorVideosCount = videoCount2022.reduce<{
+      const allCreatorVideosCount = videoCount2023.reduce<{
         [key: string]: number;
       }>((acc, video) => {
         if (!video.subtitles) return acc;
@@ -116,7 +116,7 @@ const Recap = () => {
       setTop10Creator(top10);
 
       // count how many videos watched for each month format mm
-      const videoCountPerMonth = videoCount2022.reduce<{
+      const videoCountPerMonth = videoCount2023.reduce<{
         [key: string]: number;
       }>((acc, video) => {
         const date = new Date(video.time);
@@ -131,7 +131,7 @@ const Recap = () => {
       }, {});
       setVideoCountPerMonth(Object.entries(videoCountPerMonth));
 
-      let videoCountPerDay = videoCount2022.reduce<{
+      let videoCountPerDay = videoCount2023.reduce<{
         [key: string]: number;
       }>((acc, video) => {
         const date = new Date(video.time);
@@ -219,7 +219,7 @@ const Recap = () => {
         tiltMaxAngleX={10}
       >
         <h1 className="flex flex-col font-bold text-6xl text-white pb-10 md:space-y-2">
-          <span>In 2022...</span>
+          <span>In 2023...</span>
           <span>You Watched</span>
           <span className="text-red-600">
             <span className="group-hover:z-10 text-[60px] mr-2 md:text-[100px] md:mr-4 lg:text-[200px] tracking-[-.05em] leading-tight text-primary lg:mr-6 inline">
@@ -300,8 +300,8 @@ const Recap = () => {
         <div className="md:w-[90vw] w-screen h-48">
           <ResponsiveCalendar
             data={videoCountPerDay}
-            from="2022-01-01"
-            to="2022-12-31"
+            from="2023-01-01"
+            to="2023-12-31"
             emptyColor="#eeeeee"
             colors={["#fecaca", "#ef4444", "#b91c1c", "#7f1d1d"]}
             margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
